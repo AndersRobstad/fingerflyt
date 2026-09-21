@@ -15,6 +15,7 @@ import {
 } from '../stats/aggregate';
 import { MIN_KEYSTROKES_FOR_ADAPTIVE, totalKeystrokes } from '../stats/weak-keys';
 import type { PracticeMode } from '../types';
+import { dayKey } from '../utils/date';
 import { LocalStorageAdapter } from './local-storage-adapter';
 import { migrate } from './migrations';
 import {
@@ -104,8 +105,15 @@ export class ProgressStoreState {
 		return computeStreak(this.data.sessions);
 	}
 
+	/** Today's keystrokes, including whatever the in-progress session has
+	 * recorded so far — this must stay live while typing, not just update
+	 * once a session finalizes. */
 	get todayKeystrokes(): number {
-		return keystrokesToday(this.data.sessions);
+		const liveToday =
+			this.sessionStart !== null && dayKey(this.sessionStart) === dayKey(this.now)
+				? this.sessionKeystrokes
+				: 0;
+		return keystrokesToday(this.data.sessions) + liveToday;
 	}
 
 	get lastSession() {
