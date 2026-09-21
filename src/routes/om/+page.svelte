@@ -1,0 +1,80 @@
+<script lang="ts">
+	import { Panel } from '$lib/components';
+	import Keyboard from '$lib/trainer/Keyboard.svelte';
+	import Hands from '$lib/trainer/Hands.svelte';
+	import { progressStore } from '$lib/storage/store.svelte';
+</script>
+
+<svelte:head>
+	<title>Om – Fingerflyt</title>
+</svelte:head>
+
+<div class="mb-8 max-w-[64ch]">
+	<h1 class="text-2xl font-bold tracking-tight text-ink">Om Fingerflyt</h1>
+	<p class="mt-3 text-muted">
+		Fingerflyt er en fingersettingstrener for norsk tastatur. For hvert tegn du skal skrive, viser
+		appen hvilken finger som bør trykke det — i teksten, i hintet, på tastaturet og på hendene.
+		Målet er å bygge riktige vaner gjennom stadig visuell påminnelse, samtidig som appen registrerer
+		hvilke taster du bommer på og hvor treg du er, slik at øvingen kan tilpasses deg.
+	</p>
+</div>
+
+<Panel padding="lg" class="mb-5">
+	<h2 class="text-lg font-bold text-ink">Fingersonene</h2>
+	<p class="mt-2 max-w-[60ch] text-muted">
+		Hver tast hører til én av fem fingre på hver hånd. Fargen går igjen på tastaturet, hendene,
+		heatmapet og diagrammene, slik at du alltid kan kjenne igjen hvilken finger som er i bruk.
+	</p>
+	<div class="mt-6">
+		<Hands active={[]} hold={[]} />
+	</div>
+</Panel>
+
+<Panel padding="lg" class="mb-5">
+	<h2 class="text-lg font-bold text-ink">Tastaturet fargelagt etter fingersone</h2>
+	<p class="mt-2 max-w-[60ch] text-muted">
+		Legg merke til at tallet 6 er lagt til venstre pekefinger i stedet for høyre — en bevisst
+		justering for å avlaste høyre hånd.
+	</p>
+	<div class="mt-6">
+		<Keyboard
+			layout={progressStore.layoutIndex.layout}
+			targetKeyId={null}
+			holdKeyId={null}
+			wrongKeyId={null}
+			pressedKeyId={null}
+		/>
+	</div>
+</Panel>
+
+<Panel padding="lg" class="mb-5 max-w-[64ch]">
+	<h2 class="text-lg font-bold text-ink">Hvorfor holdes Shift med motsatt hånd?</h2>
+	<p class="mt-2 text-muted">
+		Shift trykkes alltid med lillefingeren på hånden som <em>ikke</em> trykker selve tegnet. Skal du skrive
+		en stor K — som trykkes med høyre langfinger — holder du venstre Shift med venstre lillefinger. Slik
+		kan hendene jobbe samtidig i stedet for at én hånd må vri seg for å nå både tegn og skifttast, noe
+		som er både raskere og roligere for håndleddet.
+	</p>
+</Panel>
+
+<Panel padding="lg" class="max-w-[64ch]">
+	<h2 class="text-lg font-bold text-ink">Tips for å avlaste høyre pekefinger</h2>
+	<ul class="mt-3 flex flex-col gap-2.5 text-muted">
+		<li>
+			Øv jevnlig i modusen «Avlast pekefingeren» — den er satt sammen av ord med nettopp de tastene
+			pekefingeren gjerne stjeler fra naboene sine.
+		</li>
+		<li>
+			Vær bevisst når du skriver i, k, o, l og p. Disse ligger nær høyre pekefinger, men hører til
+			lang-, ring- og lillefingeren.
+		</li>
+		<li>
+			Følg med på håndbalansen på fremgangssiden. Den viser andelen tastetrykk på hver hånd over tid
+			— jevnere balanse er målet, ikke nødvendigvis 50/50.
+		</li>
+		<li>
+			La «Svake taster» ta over når den låses opp. Den øver spesifikt på ordene som treffer dine
+			tregeste og mest feilutsatte taster.
+		</li>
+	</ul>
+</Panel>
