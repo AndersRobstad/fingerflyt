@@ -54,11 +54,14 @@ export class ProgressStoreState {
 	private sessionCorrect = $state(0);
 	private sessionWrong = $state(0);
 	private sessionMisses: Record<string, number> = {};
+	/** Timestamp of the most recent keystroke. This is deliberately NOT
+	 * ticked on an interval: live WPM is meant to reflect typing pace, not
+	 * count down on its own while the user is reading or pausing between
+	 * lines. It only moves forward when a keystroke actually happens. */
 	private now = $state(Date.now());
 
 	private lastKeystrokeAt: number | null = null;
 	private idleTimer: ReturnType<typeof setTimeout> | null = null;
-	private tickInterval: ReturnType<typeof setInterval> | null = null;
 	private saveTimer: ReturnType<typeof setTimeout> | null = null;
 	private adapter: ProgressStore;
 
@@ -182,7 +185,6 @@ export class ProgressStoreState {
 			this.sessionCorrect = 0;
 			this.sessionWrong = 0;
 			this.sessionMisses = {};
-			this.startTicking();
 		}
 
 		const latency = this.lastKeystrokeAt === null || isNewSession ? 0 : now - this.lastKeystrokeAt;
@@ -209,7 +211,6 @@ export class ProgressStoreState {
 	}
 
 	private finalizeSession(): void {
-		this.stopTicking();
 		if (this.idleTimer) {
 			clearTimeout(this.idleTimer);
 			this.idleTimer = null;
@@ -248,18 +249,6 @@ export class ProgressStoreState {
 	private resetIdleTimer(): void {
 		if (this.idleTimer) clearTimeout(this.idleTimer);
 		this.idleTimer = setTimeout(() => this.endSession(), IDLE_TIMEOUT_MS);
-	}
-
-	private startTicking(): void {
-		if (this.tickInterval) return;
-		this.tickInterval = setInterval(() => (this.now = Date.now()), 1000);
-	}
-
-	private stopTicking(): void {
-		if (this.tickInterval) {
-			clearInterval(this.tickInterval);
-			this.tickInterval = null;
-		}
 	}
 
 	// ---- persistence & data management -------------------------------------

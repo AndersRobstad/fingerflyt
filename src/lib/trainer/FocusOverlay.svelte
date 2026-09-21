@@ -6,7 +6,10 @@
 	<button
 		type="button"
 		class="absolute inset-0 z-10 grid place-items-center rounded-panel bg-surface/90 p-6 text-center text-lg font-semibold text-ink backdrop-blur-[2px]"
-		onclick={() => window.focus()}
+		onclick={(e) => {
+			window.focus();
+			e.currentTarget.blur();
+		}}
 	>
 		Klikk her for å fortsette å skrive
 	</button>

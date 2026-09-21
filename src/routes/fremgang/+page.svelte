@@ -86,9 +86,7 @@
 
 <Panel class="mt-5">
 	<h2 class="mb-1 text-sm font-semibold text-muted">Håndbalanse</h2>
-	<p class="mb-4 text-sm text-muted">
-		Andel tastetrykk på hver hånd. Målet er å avlaste høyre pekefinger.
-	</p>
+	<p class="mb-4 text-sm text-muted">Andel tastetrykk fordelt på venstre og høyre hånd.</p>
 	<HandBalance
 		leftPct={progressStore.handBalance.leftPct}
 		rightPct={progressStore.handBalance.rightPct}

@@ -31,7 +31,6 @@
 	const MODES = $derived([
 		{ value: 'tekst', label: 'Tekst' },
 		{ value: 'kode', label: 'Kode' },
-		{ value: 'avlast', label: 'Avlast pekefingeren' },
 		{
 			value: 'svake',
 			label: 'Svake taster',
@@ -98,5 +97,13 @@
 </div>
 
 <div class="mt-4 flex justify-end">
-	<Button variant="secondary" onclick={() => engine.loadNextLine()}>Ny tekst</Button>
+	<Button
+		variant="secondary"
+		onclick={(e) => {
+			engine.loadNextLine();
+			e.currentTarget.blur();
+		}}
+	>
+		Ny tekst
+	</Button>
 </div>

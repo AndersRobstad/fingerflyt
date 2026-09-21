@@ -34,7 +34,7 @@
 	<title>Fingerflyt – norsk fingersetting</title>
 	<meta
 		name="description"
-		content="Øv på riktig fingersetting på norsk tastatur, og avlast høyre pekefinger."
+		content="Øv på riktig fingersetting på norsk tastatur, med sanntidsveiledning for hver tast."
 	/>
 </svelte:head>
 

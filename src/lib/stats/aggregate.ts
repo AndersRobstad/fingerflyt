@@ -110,8 +110,7 @@ export function computeKeyStats(
 }
 
 /** Share of typed characters (space excluded) that belong to the left vs.
- * right hand — the app's headline metric, since offloading the right index
- * finger is the whole point. */
+ * right hand. */
 export function computeHandBalance(
 	chars: Record<string, CharStat>,
 	index: LayoutIndex

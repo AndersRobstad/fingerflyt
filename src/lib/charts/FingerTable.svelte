@@ -37,18 +37,12 @@
 		<tbody>
 			{#each ROWS as row (row.id)}
 				{@const s = stats[row.id]}
-				<tr
-					class="border-b border-line/60"
-					style={row.id === 'R2'
-						? 'background-color: color-mix(in srgb, var(--finger-index) 12%, transparent);'
-						: ''}
-				>
+				<tr class="border-b border-line/60">
 					<td class="py-2 pr-3">
 						<span class="inline-flex items-center gap-2">
 							<span class="size-2.5 rounded-full" style={`background:${fingerColorVar(row.id)}`}
 							></span>
 							{row.label}
-							{#if row.id === 'R2'}<span class="text-xs text-muted">(fokusfinger)</span>{/if}
 						</span>
 					</td>
 					<td class="py-2 pr-3 font-mono tabular-nums">{s.attempts}</td>

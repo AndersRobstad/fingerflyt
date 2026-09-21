@@ -36,14 +36,14 @@ describe('pickLine', () => {
 		}
 	});
 
-	it('generates an avlast line of 8 to 10 words', () => {
-		const line = pickLine('avlast', null, ctx, Math.random);
+	it('generates a svake line of 8 to 10 words', () => {
+		const line = pickLine('svake', null, ctx, Math.random);
 		const wordCount = line.split(' ').filter(Boolean).length;
 		expect(wordCount).toBeGreaterThanOrEqual(8);
 		expect(wordCount).toBeLessThanOrEqual(11); // allow for an injected comma/digit token
 	});
 
-	it('falls back to the offload target set for svake when there is no history', () => {
+	it('falls back to an unweighted pick for svake when there is no scored history', () => {
 		const line = pickLine('svake', null, ctx, Math.random);
 		expect(line.length).toBeGreaterThan(0);
 	});

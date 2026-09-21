@@ -30,11 +30,8 @@ describe('planChar', () => {
 		expect(plan).toMatchObject({ keyId: 'q', finger: 'L5', holdKeyId: 'shiftR', holdFinger: 'R5' });
 	});
 
-	it('deliberately assigns the digit 6 to the left index finger', () => {
-		expect(planChar('6', index)).toMatchObject({ finger: 'L2' });
-	});
-
-	it('assigns 7 (the mirror digit) to the right index finger', () => {
+	it('assigns 6 and 7 to the right index finger, standard touch-typing style', () => {
+		expect(planChar('6', index)).toMatchObject({ finger: 'R2' });
 		expect(planChar('7', index)).toMatchObject({ finger: 'R2' });
 	});
 

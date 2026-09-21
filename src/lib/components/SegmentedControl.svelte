@@ -21,6 +21,19 @@
 		onValueChange?: (value: string) => void;
 		class?: string;
 	} = $props();
+
+	// Once a segment is picked (click OR keyboard), give focus back to the
+	// page instead of leaving it on the toggle button — otherwise the next
+	// keystrokes (space, in particular) get eaten by this control instead of
+	// reaching the typing surface. Skip the very first run so we don't blur
+	// anything on initial mount.
+	let mounted = false;
+	$effect(() => {
+		if (mounted && value && typeof document !== 'undefined') {
+			(document.activeElement as HTMLElement | null)?.blur();
+		}
+		mounted = true;
+	});
 </script>
 
 <ToggleGroup.Root

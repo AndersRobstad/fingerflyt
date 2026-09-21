@@ -12,6 +12,6 @@ export interface FingerMeta {
 	cls: FingerClass;
 }
 
-export type PracticeMode = 'tekst' | 'kode' | 'avlast' | 'svake';
+export type PracticeMode = 'tekst' | 'kode' | 'svake';
 
 export type LayoutId = 'no-pc';

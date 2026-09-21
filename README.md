@@ -1,7 +1,6 @@
 # Fingerflyt
 
-A touch-typing trainer for the Norwegian PC keyboard layout, built for a
-developer who wants to stop overusing his right index finger. For every
+A touch-typing trainer for the Norwegian PC keyboard layout. For every
 character you're about to type, the app shows in real time which finger
 should press it, and tracks your progress over time — accuracy, speed, and
 which hand is doing the work.
@@ -100,9 +99,6 @@ without touching the trainer engine, stats, or content-generation logic.
 
 - **Tekst** — everyday Norwegian sentences.
 - **Kode** — TypeScript/Svelte one-liners.
-- **Avlast pekefingeren** — generated word lines weighted towards the keys a
-  self-taught typist tends to reach with the right index finger instead of
-  the correct finger (i, k, 8, comma, o, l, p).
-- **Svake taster** — adaptive: generates lines weighted towards _your_ actual
-  slow/error-prone keys (`src/lib/stats/weak-keys.ts`). Unlocks after 300
-  recorded keystrokes.
+- **Svake taster** — adaptive: generates word lines weighted towards _your_
+  actual slow/error-prone keys (`src/lib/stats/weak-keys.ts`). Unlocks after
+  300 recorded keystrokes.

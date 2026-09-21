@@ -47,7 +47,7 @@ export const CODE_LINES: readonly string[] = [
 	'const isTypable = (c: string) => charMap.has(c);',
 	"const result = a && b ? 'begge' : a || b ? 'en' : 'ingen';",
 	'const entries = Object.entries(chars).filter(([, v]) => v.attempts > 0);',
-	"export type Mode = 'tekst' | 'kode' | 'avlast' | 'svake';",
+	"export type Mode = 'tekst' | 'kode' | 'svake';",
 	'const nums: number[] = [1, 2, 3, 4, 5];',
 	"if (!ready) { throw new Error('Ikke klar!'); }"
 ];

@@ -7,10 +7,6 @@ import { TEXTS } from './texts';
 import { WORD_BANK } from './words';
 import { buildPracticeLine, type Rng } from './word-select';
 
-/** Keys a self-taught right-hand-dominant typist tends to reach with the
- * index finger instead of the correct middle/ring/pinky finger. */
-export const AVLAST_TARGET_CHARS: readonly string[] = ['i', 'k', '8', ',', 'o', 'l', 'p'];
-
 function pickFromList(list: readonly string[], prev: string | null, rng: Rng): string {
 	if (list.length === 0) return '';
 	let pick = list[Math.floor(rng() * list.length)];
@@ -40,9 +36,10 @@ export interface PracticeContext {
 }
 
 /** Picks the next practice line for a mode, never repeating the immediately
- * previous line. "Svake taster" falls back to the offload target set if the
- * user has no scored weak keys yet (callers should gate the mode itself
- * behind {@link MIN_KEYSTROKES_FOR_ADAPTIVE}). */
+ * previous line. "Svake taster" weights word selection towards the user's
+ * own scored weak characters; with no scored characters yet it degenerates
+ * to an unweighted pick from the word bank (callers should gate the mode
+ * itself behind {@link MIN_KEYSTROKES_FOR_ADAPTIVE}). */
 export function pickLine(
 	mode: PracticeMode,
 	prev: string | null,
@@ -54,11 +51,9 @@ export function pickLine(
 			return pickFromList(TEXTS, prev, rng);
 		case 'kode':
 			return pickFromList(CODE_LINES, prev, rng);
-		case 'avlast':
-			return pickGeneratedLine(AVLAST_TARGET_CHARS, prev, rng);
 		case 'svake': {
 			const weak = topWeakChars(ctx.chars, ctx.sessions, ctx.layoutIndex, 8);
-			return pickGeneratedLine(weak.length ? weak : AVLAST_TARGET_CHARS, prev, rng);
+			return pickGeneratedLine(weak, prev, rng);
 		}
 	}
 }

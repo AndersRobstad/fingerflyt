@@ -3,9 +3,7 @@ import type { KeyboardLayout } from './types';
 /**
  * Norwegian PC (ISO) keyboard layout.
  *
- * Letter finger assignment follows standard touch-typing technique, with one
- * deliberate deviation: `6` sits on the left index finger (instead of the
- * right) to take load off the right hand, per the project brief.
+ * Finger assignment follows standard touch-typing technique.
  *
  * The dead key (¨ ^ ~) is included for visual completeness but is never
  * reachable from practice text — its `kind` is `dead` so it is excluded when
@@ -22,7 +20,7 @@ export const NO_PC_LAYOUT: KeyboardLayout = {
 			{ id: '3', base: '3', shift: '#', altgr: '£', finger: 'L3', width: 1, kind: 'char' },
 			{ id: '4', base: '4', shift: '¤', altgr: '$', finger: 'L2', width: 1, kind: 'char' },
 			{ id: '5', base: '5', shift: '%', altgr: '€', finger: 'L2', width: 1, kind: 'char' },
-			{ id: '6', base: '6', shift: '&', altgr: null, finger: 'L2', width: 1, kind: 'char' },
+			{ id: '6', base: '6', shift: '&', altgr: null, finger: 'R2', width: 1, kind: 'char' },
 			{ id: '7', base: '7', shift: '/', altgr: '{', finger: 'R2', width: 1, kind: 'char' },
 			{ id: '8', base: '8', shift: '(', altgr: '[', finger: 'R3', width: 1, kind: 'char' },
 			{ id: '9', base: '9', shift: ')', altgr: ']', finger: 'R4', width: 1, kind: 'char' },

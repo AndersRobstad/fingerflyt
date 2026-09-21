@@ -33,8 +33,8 @@
 <Panel padding="lg" class="mb-5">
 	<h2 class="text-lg font-bold text-ink">Tastaturet fargelagt etter fingersone</h2>
 	<p class="mt-2 max-w-[60ch] text-muted">
-		Legg merke til at tallet 6 er lagt til venstre pekefinger i stedet for høyre — en bevisst
-		justering for å avlaste høyre hånd.
+		Fargene under hver tast viser hvilken finger som er riktig for den, uavhengig av hvilken finger
+		du faktisk bruker.
 	</p>
 	<div class="mt-6">
 		<Keyboard
@@ -58,19 +58,16 @@
 </Panel>
 
 <Panel padding="lg" class="max-w-[64ch]">
-	<h2 class="text-lg font-bold text-ink">Tips for å avlaste høyre pekefinger</h2>
+	<h2 class="text-lg font-bold text-ink">Tips for bedre fingerbruk</h2>
 	<ul class="mt-3 flex flex-col gap-2.5 text-muted">
+		<li>Øv litt hver dag. Korte, hyppige økter gir bedre muskelminne enn sjeldne, lange.</li>
 		<li>
-			Øv jevnlig i modusen «Avlast pekefingeren» — den er satt sammen av ord med nettopp de tastene
-			pekefingeren gjerne stjeler fra naboene sine.
+			Prioriter nøyaktighet fremfor fart i starten. Farten kommer av seg selv når fingrene sitter
+			riktig.
 		</li>
 		<li>
-			Vær bevisst når du skriver i, k, o, l og p. Disse ligger nær høyre pekefinger, men hører til
-			lang-, ring- og lillefingeren.
-		</li>
-		<li>
-			Følg med på håndbalansen på fremgangssiden. Den viser andelen tastetrykk på hver hånd over tid
-			— jevnere balanse er målet, ikke nødvendigvis 50/50.
+			Se på varmekartet og tabellen per finger på fremgangssiden for å se hvilke taster som trenger
+			mer øvelse.
 		</li>
 		<li>
 			La «Svake taster» ta over når den låses opp. Den øver spesifikt på ordene som treffer dine

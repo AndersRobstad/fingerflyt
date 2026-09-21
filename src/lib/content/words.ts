@@ -1,14 +1,8 @@
 /**
- * Master word bank shared by two practice modes:
- *
- * - "Avlast pekefingeren" weights selection towards {@link AVLAST_TARGET_CHARS}
- *   — the keys a self-taught typist tends to reach with the right index
- *   finger instead of the correct one.
- * - "Svake taster" weights selection towards whatever characters the user's
- *   own history says are slow or error-prone.
- *
- * A single broad, common-word list lets both modes reuse the same weighted
- * picker in {@link ../content/word-select}.
+ * Master word bank for the "Svake taster" practice mode, which weights word
+ * selection towards whatever characters the user's own history says are
+ * slow or error-prone, using the weighted picker in
+ * {@link ../content/word-select}.
  */
 export const WORD_BANK: readonly string[] = [
 	'ikke',
