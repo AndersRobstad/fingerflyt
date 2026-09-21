@@ -23,6 +23,19 @@
 		return engine.attach();
 	});
 
+	// Switching keyboard layout also switches practice-content language, so
+	// the in-progress line (possibly containing characters the new layout
+	// can't produce) must be replaced rather than left stranded.
+	let mountedLayout = false;
+	$effect(() => {
+		// Read unconditionally so this is tracked as a dependency even on the
+		// first run, when `mountedLayout` short-circuits the rest of the
+		// expression below.
+		const layout = progressStore.data.settings.layout;
+		if (mountedLayout && layout) engine.loadNextLine();
+		mountedLayout = true;
+	});
+
 	const targetKeyId = $derived(engine.plan?.keyId ?? null);
 	const holdKeyId = $derived(engine.plan?.holdKeyId ?? null);
 	const activeFingers = $derived(engine.plan ? highlightFingers(engine.plan.finger) : []);

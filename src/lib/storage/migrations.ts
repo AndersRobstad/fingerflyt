@@ -90,7 +90,7 @@ function sanitizeSettings(v: unknown): Settings {
 			typeof r.showKeyboard === 'boolean' ? r.showKeyboard : DEFAULT_SETTINGS.showKeyboard,
 		showHands: typeof r.showHands === 'boolean' ? r.showHands : DEFAULT_SETTINGS.showHands,
 		strictMode: typeof r.strictMode === 'boolean' ? r.strictMode : DEFAULT_SETTINGS.strictMode,
-		layout: r.layout === 'no-pc' ? 'no-pc' : DEFAULT_SETTINGS.layout,
+		layout: r.layout === 'no-pc' || r.layout === 'us-qwerty' ? r.layout : DEFAULT_SETTINGS.layout,
 		theme:
 			r.theme === 'light' || r.theme === 'dark' || r.theme === 'system'
 				? r.theme

@@ -14,4 +14,8 @@ export interface FingerMeta {
 
 export type PracticeMode = 'tekst' | 'kode' | 'svake';
 
-export type LayoutId = 'no-pc';
+export type LayoutId = 'no-pc' | 'us-qwerty';
+
+/** Which language a layout's practice text/word content should be drawn
+ * in. See {@link ../layouts/layoutLanguage}. */
+export type Language = 'nb' | 'en';

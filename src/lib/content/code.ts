@@ -34,7 +34,7 @@ export const CODE_LINES: readonly string[] = [
 	'try { await save(data); } catch (err) { console.error(err); }',
 	'const clamp = (n: number, min: number, max: number) => Math.min(Math.max(n, min), max);',
 	'export default class Store { #items: Item[] = []; }',
-	"const label = open ? 'Lukk' : 'Åpne';",
+	"const label = open ? 'Close' : 'Open';",
 	"const el = document.querySelector('.stage');",
 	'if (event.metaKey || (event.ctrlKey && !event.altKey)) { return; }',
 	'const key = event.key.length === 1 ? event.key : null;',

@@ -29,7 +29,12 @@
 	// anything on initial mount.
 	let mounted = false;
 	$effect(() => {
-		if (mounted && value && typeof document !== 'undefined') {
+		// Read unconditionally (not inside the `if`) so this dependency is
+		// tracked even on the first run, when `mounted` short-circuits the
+		// rest of the expression — otherwise Svelte never sees `value` as a
+		// dependency and the effect would never fire again.
+		const current = value;
+		if (mounted && current && typeof document !== 'undefined') {
 			(document.activeElement as HTMLElement | null)?.blur();
 		}
 		mounted = true;

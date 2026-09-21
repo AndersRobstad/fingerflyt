@@ -17,8 +17,24 @@
 <div
 	class="mb-6 grid grid-cols-2 gap-5 rounded-panel border-[1.5px] border-line bg-surface px-5 py-4 sm:grid-cols-4"
 >
-	<StatTile value={String(progressStore.todayKeystrokes)} label="Tastetrykk i dag" />
-	<StatTile value={wpm !== undefined ? String(wpm) : '–'} label={wpmLabel} />
-	<StatTile value={accuracy !== undefined ? `${accuracy}%` : '–'} label={accuracyLabel} />
-	<StatTile value={String(progressStore.streak.current)} label="Dager på rad" />
+	<StatTile
+		value={String(progressStore.todayKeystrokes)}
+		label="Tastetrykk i dag"
+		loading={!progressStore.loaded}
+	/>
+	<StatTile
+		value={wpm !== undefined ? String(wpm) : '–'}
+		label={wpmLabel}
+		loading={!progressStore.loaded}
+	/>
+	<StatTile
+		value={accuracy !== undefined ? `${accuracy}%` : '–'}
+		label={accuracyLabel}
+		loading={!progressStore.loaded}
+	/>
+	<StatTile
+		value={String(progressStore.streak.current)}
+		label="Dager på rad"
+		loading={!progressStore.loaded}
+	/>
 </div>

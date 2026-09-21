@@ -13,6 +13,11 @@
 		{ value: 'light', label: 'Lys' },
 		{ value: 'dark', label: 'Mørk' }
 	];
+
+	const LAYOUT_OPTIONS = [
+		{ value: 'no-pc', label: 'Norsk (PC)' },
+		{ value: 'us-qwerty', label: 'US (QWERTY)' }
+	];
 </script>
 
 <Dialog
@@ -21,7 +26,7 @@
 	description="Endringene lagres automatisk på denne enheten."
 >
 	<div class="divide-y divide-line">
-		<SettingRow label="Vis tastatur" description="Det norske tastaturet under skrivefeltet.">
+		<SettingRow label="Vis tastatur" description="Tastaturet under skrivefeltet.">
 			<Switch
 				bind:checked={
 					() => progressStore.data.settings.showKeyboard,
@@ -51,6 +56,20 @@
 				aria-label="Streng modus"
 			/>
 		</SettingRow>
+		<div class="py-3.5">
+			<p class="text-[0.95rem] text-ink">Tastaturlayout</p>
+			<p class="mt-1 mb-3 text-sm leading-snug text-muted">
+				Bytter også språket i tekst- og ordøvelsene.
+			</p>
+			<SegmentedControl
+				options={LAYOUT_OPTIONS}
+				ariaLabel="Tastaturlayout"
+				bind:value={
+					() => progressStore.data.settings.layout,
+					(v) => progressStore.updateSettings({ layout: v as Settings['layout'] })
+				}
+			/>
+		</div>
 		<div class="py-3.5">
 			<p class="text-[0.95rem] text-ink">Fargetema</p>
 			<p class="mt-1 mb-3 text-sm leading-snug text-muted">

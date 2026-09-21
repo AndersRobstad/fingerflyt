@@ -1,12 +1,12 @@
 # Fingerflyt
 
-A touch-typing trainer for the Norwegian PC keyboard layout. For every
-character you're about to type, the app shows in real time which finger
-should press it, and tracks your progress over time — accuracy, speed, and
-which hand is doing the work.
+A touch-typing trainer for the Norwegian PC and US QWERTY keyboard layouts.
+For every character you're about to type, the app shows in real time which
+finger should press it, and tracks your progress over time — accuracy,
+speed, and which hand is doing the work.
 
-All UI text is in Norwegian bokmål; code, comments and this README are in
-English.
+The app chrome (navigation, settings, buttons) is in Norwegian bokmål
+regardless of layout; code, comments and this README are in English.
 
 ## Stack
 
@@ -88,17 +88,33 @@ Export/import round-trip through the same JSON shape as `localStorage`.
 
 ## Keyboard layouts
 
-The Norwegian PC (ISO) layout lives as typed data in
-`src/lib/layouts/no-pc.ts` — each key's base/shift/AltGr characters, its
+Each layout lives as typed data: the Norwegian PC (ISO) layout in
+`src/lib/layouts/no-pc.ts`, the US QWERTY (ANSI) layout in
+`src/lib/layouts/us-qwerty.ts` — each key's base/shift/AltGr characters, its
 correct finger, and its visual width. `src/lib/layouts/index.ts` is a small
-registry keyed by layout id, so a Norwegian Mac layout (or another language
-entirely) can be added later as a second data file plus a picker in settings,
-without touching the trainer engine, stats, or content-generation logic.
+registry keyed by layout id, so a further layout (a Norwegian Mac layout, for
+instance) can be added later as one more data file plus an entry in the
+settings picker, without touching the trainer engine, stats, or
+content-generation logic. `layoutLanguage()` maps each layout to the practice
+language it pulls content in (`no-pc` → Norwegian, `us-qwerty` → English);
+switching layout in settings reloads the current line in the new language.
 
 ## Practice modes
 
-- **Tekst** — everyday Norwegian sentences.
-- **Kode** — TypeScript/Svelte one-liners.
+- **Tekst** — everyday sentences, in the active layout's language.
+- **Kode** — TypeScript/Svelte one-liners (English, shared by both layouts).
 - **Svake taster** — adaptive: generates word lines weighted towards _your_
   actual slow/error-prone keys (`src/lib/stats/weak-keys.ts`). Unlocks after
   300 recorded keystrokes.
+
+## Word lists
+
+Each language ships a small, hand-written word bank bundled with the app
+(`src/lib/content/words.ts` for Norwegian, `words.en.ts` for English), used
+immediately and as a fallback. In the browser, this is upgraded in the
+background to a much larger (2,500-word) frequency-ranked list fetched once
+from `/wordlists/{lang}.json` — a static asset built by
+`scripts/build-wordlists.mjs` from the
+[hermitdave/FrequencyWords](https://github.com/hermitdave/FrequencyWords)
+corpus (CC BY-SA 4.0, derived from OpenSubtitles). Re-run the script to
+refresh those lists; nothing about it runs at request time or in CI.
