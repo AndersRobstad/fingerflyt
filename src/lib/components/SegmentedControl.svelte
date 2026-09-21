@@ -25,19 +25,18 @@
 	// Once a segment is picked (click OR keyboard), give focus back to the
 	// page instead of leaving it on the toggle button — otherwise the next
 	// keystrokes (space, in particular) get eaten by this control instead of
-	// reaching the typing surface. Skip the very first run so we don't blur
-	// anything on initial mount.
-	let mounted = false;
+	// reaching the typing surface. Only blur on a genuine value change, not
+	// merely whenever this re-runs for some unrelated reason — when `value`
+	// is bound to a path off a larger reassigned object (as it is for the
+	// theme/layout pickers, bound to `progressStore.data.settings.*`), any
+	// reassignment of that object re-evaluates the binding even if this
+	// particular value didn't change.
+	let previous: string | undefined;
 	$effect(() => {
-		// Read unconditionally (not inside the `if`) so this dependency is
-		// tracked even on the first run, when `mounted` short-circuits the
-		// rest of the expression — otherwise Svelte never sees `value` as a
-		// dependency and the effect would never fire again.
-		const current = value;
-		if (mounted && current && typeof document !== 'undefined') {
+		if (previous !== undefined && previous !== value && typeof document !== 'undefined') {
 			(document.activeElement as HTMLElement | null)?.blur();
 		}
-		mounted = true;
+		previous = value;
 	});
 </script>
 

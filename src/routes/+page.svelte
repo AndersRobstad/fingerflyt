@@ -25,15 +25,18 @@
 
 	// Switching keyboard layout also switches practice-content language, so
 	// the in-progress line (possibly containing characters the new layout
-	// can't produce) must be replaced rather than left stranded.
-	let mountedLayout = false;
+	// can't produce) must be replaced rather than left stranded. This must
+	// only fire on a genuine layout change, not merely whenever
+	// `progressStore.data` is reassigned for some unrelated reason (loading
+	// persisted settings on mount, toggling any other setting, ...) — that
+	// would race with the onMount load above and briefly render two lines in
+	// quick succession. Comparing against the previous value (rather than a
+	// "have we mounted yet" boolean) survives every reassignment safely.
+	let previousLayout: string | undefined;
 	$effect(() => {
-		// Read unconditionally so this is tracked as a dependency even on the
-		// first run, when `mountedLayout` short-circuits the rest of the
-		// expression below.
 		const layout = progressStore.data.settings.layout;
-		if (mountedLayout && layout) engine.loadNextLine();
-		mountedLayout = true;
+		if (previousLayout !== undefined && previousLayout !== layout) engine.loadNextLine();
+		previousLayout = layout;
 	});
 
 	const targetKeyId = $derived(engine.plan?.keyId ?? null);
