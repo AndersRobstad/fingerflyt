@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { ToggleGroup } from 'bits-ui';
 	import { cn } from '../utils/cn';
+	import { watchChange } from '../utils/watch-change.svelte';
 
 	export interface SegmentedOption {
 		value: string;
@@ -25,19 +26,14 @@
 	// Once a segment is picked (click OR keyboard), give focus back to the
 	// page instead of leaving it on the toggle button — otherwise the next
 	// keystrokes (space, in particular) get eaten by this control instead of
-	// reaching the typing surface. Only blur on a genuine value change, not
-	// merely whenever this re-runs for some unrelated reason — when `value`
-	// is bound to a path off a larger reassigned object (as it is for the
-	// theme/layout pickers, bound to `progressStore.data.settings.*`), any
-	// reassignment of that object re-evaluates the binding even if this
-	// particular value didn't change.
-	let previous: string | undefined;
-	$effect(() => {
-		if (previous !== undefined && previous !== value && typeof document !== 'undefined') {
-			(document.activeElement as HTMLElement | null)?.blur();
+	// reaching the typing surface. See watch-change.svelte.ts for why this
+	// only fires on a genuine value change.
+	watchChange(
+		() => value,
+		() => {
+			if (typeof document !== 'undefined') (document.activeElement as HTMLElement | null)?.blur();
 		}
-		previous = value;
-	});
+	);
 </script>
 
 <ToggleGroup.Root

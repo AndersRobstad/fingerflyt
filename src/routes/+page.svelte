@@ -6,6 +6,7 @@
 	import { highlightFingers } from '$lib/fingers';
 	import { progressStore } from '$lib/storage/store.svelte';
 	import type { PracticeMode } from '$lib/types';
+	import { watchChange } from '$lib/utils/watch-change.svelte';
 	import FocusOverlay from '$lib/trainer/FocusOverlay.svelte';
 	import Hands from '$lib/trainer/Hands.svelte';
 	import Hint from '$lib/trainer/Hint.svelte';
@@ -30,14 +31,11 @@
 	// `progressStore.data` is reassigned for some unrelated reason (loading
 	// persisted settings on mount, toggling any other setting, ...) — that
 	// would race with the onMount load above and briefly render two lines in
-	// quick succession. Comparing against the previous value (rather than a
-	// "have we mounted yet" boolean) survives every reassignment safely.
-	let previousLayout: string | undefined;
-	$effect(() => {
-		const layout = progressStore.data.settings.layout;
-		if (previousLayout !== undefined && previousLayout !== layout) engine.loadNextLine();
-		previousLayout = layout;
-	});
+	// quick succession. See watch-change.svelte.ts.
+	watchChange(
+		() => progressStore.data.settings.layout,
+		() => engine.loadNextLine()
+	);
 
 	const targetKeyId = $derived(engine.plan?.keyId ?? null);
 	const holdKeyId = $derived(engine.plan?.holdKeyId ?? null);

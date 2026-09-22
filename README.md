@@ -17,8 +17,13 @@ regardless of layout; code, comments and this README are in English.
   and behaves consistently.
 - Charts (`src/lib/charts`) are hand-built SVG, using `d3-scale`/`d3-shape`
   for the math — no heavyweight charting library.
-- Vitest for unit tests on the pure logic: the character → key/finger
-  mapping, the stats calculations, and the storage migrations.
+- Vitest, in two projects: `server` (Node) for the pure logic — the
+  character → key/finger mapping, the stats calculations, the storage
+  migrations — and `client` (jsdom, with Svelte's actual browser runtime via
+  `resolve.conditions: ['browser']`) for reactive/rune-based behaviour,
+  including a real `TrainerEngine` test that dispatches genuine
+  `KeyboardEvent`s to catch the class of bug where typing stops responding
+  after a reactive update.
 
 ## Running locally
 

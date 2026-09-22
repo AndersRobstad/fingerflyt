@@ -76,6 +76,12 @@ export class TrainerEngine {
 			return;
 		}
 		if (!event.key || event.key.length !== 1) return;
+
+		// Defensive self-heal: there should always be a line loaded once the
+		// engine has started, but typing must never go permanently inert if
+		// that invariant is ever violated (e.g. by a bug elsewhere) — load a
+		// fresh line rather than silently dropping every future keystroke.
+		if (this.text.length === 0) this.loadNextLine();
 		if (this.pos >= this.text.length) return;
 
 		event.preventDefault();
