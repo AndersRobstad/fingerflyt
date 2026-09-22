@@ -23,7 +23,7 @@
 <div
 	class="mx-auto flex max-w-[920px] flex-col gap-1.5"
 	role="img"
-	aria-label="Norsk tastatur (PC)"
+	aria-label={`${layout.name} tastatur`}
 >
 	{#each layout.rows as row, ri (ri)}
 		<div class="flex gap-1.5">
@@ -34,6 +34,7 @@
 				{@const isPressed = key.id === pressedKeyId}
 				{@const showShiftCorner = key.kind === 'char' && !isLetterKey(key) && key.shift}
 				{@const showAltgrCorner = key.kind === 'char' && key.altgr}
+				{@const isHomeAnchor = key.id === 'f' || key.id === 'j'}
 				<div
 					class={cn(
 						'relative grid h-10 min-w-0 place-items-center rounded-key border text-[0.78rem] font-medium transition-transform duration-100 select-none sm:h-12',
@@ -62,6 +63,15 @@
 						>
 					{/if}
 					<span class="font-mono">{mainLabel(key)}</span>
+					{#if isHomeAnchor}
+						<!-- Mirrors the tactile bump on a physical keyboard's F and J
+						     keys, so grunnstillingen (home position) is always
+						     visible here too, not just something you have to feel for. -->
+						<span
+							class="pointer-events-none absolute bottom-[5px] left-1/2 h-[3px] w-3.5 -translate-x-1/2 rounded-full bg-current opacity-45"
+							aria-hidden="true"
+						></span>
+					{/if}
 				</div>
 			{/each}
 		</div>

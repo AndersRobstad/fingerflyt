@@ -30,6 +30,16 @@
 	</div>
 </Panel>
 
+<Panel padding="lg" class="mb-5 max-w-[64ch]">
+	<h2 class="text-lg font-bold text-ink">Grunnstillingen</h2>
+	<p class="mt-2 text-muted">
+		Mellom hvert tastetrykk hviler fingrene i grunnstillingen: de fire venstre fingrene på A, S, D
+		og F, og de fire høyre fingrene på J, K, L og tasten rett til høyre for L. Derfra når du alle
+		andre taster uten å se ned. F og J har en liten markør på tastaturet i appen — akkurat som
+		kulene du kjenner på et fysisk tastatur — så pekefingrene kan finne hjem av seg selv.
+	</p>
+</Panel>
+
 <Panel padding="lg" class="mb-5">
 	<h2 class="text-lg font-bold text-ink">Tastaturet fargelagt etter fingersone</h2>
 	<p class="mt-2 max-w-[60ch] text-muted">

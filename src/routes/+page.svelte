@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { resolve } from '$app/paths';
+	import CircleQuestionMarkIcon from '@lucide/svelte/icons/circle-question-mark';
 	import Button from '$lib/components/Button.svelte';
 	import Panel from '$lib/components/Panel.svelte';
 	import SegmentedControl from '$lib/components/SegmentedControl.svelte';
@@ -63,7 +65,17 @@
 
 <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
 	<div>
-		<h1 class="text-2xl font-bold tracking-tight text-ink">Trening</h1>
+		<div class="flex items-center gap-2">
+			<h1 class="text-2xl font-bold tracking-tight text-ink">Trening</h1>
+			<a
+				href={resolve('/om')}
+				class="grid size-6 place-items-center rounded-full text-muted transition-colors hover:bg-paper hover:text-ink"
+				aria-label="Hvorfor fingersetting? Les mer på Om-siden"
+				title="Hvorfor fingersetting?"
+			>
+				<CircleQuestionMarkIcon size={17} />
+			</a>
+		</div>
 		<p class="mt-1 text-muted">Skriv teksten under. Fingeren som lyser opp er den du skal bruke.</p>
 	</div>
 	<div>
