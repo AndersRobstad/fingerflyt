@@ -85,6 +85,23 @@ describe('migrate', () => {
 		expect(result.settings).toEqual({ ...DEFAULT_SETTINGS, strictMode: false });
 	});
 
+	it('accepts every valid layout id, including the Mac variants', () => {
+		for (const layout of ['no-pc', 'no-mac', 'us-qwerty', 'us-mac']) {
+			const result = migrate({ version: 1, chars: {}, sessions: [], settings: { layout } });
+			expect(result.settings.layout).toBe(layout);
+		}
+	});
+
+	it('falls back to the default layout for an unrecognised layout id', () => {
+		const result = migrate({
+			version: 1,
+			chars: {},
+			sessions: [],
+			settings: { layout: 'dvorak' }
+		});
+		expect(result.settings.layout).toBe(DEFAULT_SETTINGS.layout);
+	});
+
 	it('round-trips through JSON without loss', () => {
 		const original = migrate({
 			version: 1,

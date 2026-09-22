@@ -97,12 +97,23 @@ Each layout lives as typed data: the Norwegian PC (ISO) layout in
 `src/lib/layouts/no-pc.ts`, the US QWERTY (ANSI) layout in
 `src/lib/layouts/us-qwerty.ts` — each key's base/shift/AltGr characters, its
 correct finger, and its visual width. `src/lib/layouts/index.ts` is a small
-registry keyed by layout id, so a further layout (a Norwegian Mac layout, for
-instance) can be added later as one more data file plus an entry in the
-settings picker, without touching the trainer engine, stats, or
+registry keyed by layout id, so a further layout can be added later as one
+more data file, without touching the trainer engine, stats, or
 content-generation logic. `layoutLanguage()` maps each layout to the practice
-language it pulls content in (`no-pc` → Norwegian, `us-qwerty` → English);
-switching layout in settings reloads the current line in the new language.
+language it pulls content in (`no-pc`/`no-mac` → Norwegian, `us-qwerty`/`us-mac`
+→ English); switching layout in settings reloads the current line in the new
+language.
+
+Settings splits the layout picker into two independent choices — a language
+(Norsk/US) and a Mac toggle — combined into one of the four layout ids via
+`resolveLayoutId()`/`layoutPlatform()`. Letters, numbers and punctuation are
+identical between a language's PC and Mac layout (`no-mac`/`us-mac` reuse the
+PC layouts' character rows, see `mac-modifier-row.ts`); only the bottom
+modifier row differs — Control/Option/Cmd instead of Ctrl/Alt/Win, with the
+Windows/Menu keys dropped since Mac keyboards don't have them. The first time
+someone opens the app, with no persisted settings yet, `isApplePlatform()`
+(`src/lib/utils/platform.ts`) reads their user agent to pre-fill the Mac
+toggle; any explicit choice afterwards is never overridden.
 
 ## Practice modes
 

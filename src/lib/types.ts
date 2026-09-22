@@ -14,8 +14,13 @@ export interface FingerMeta {
 
 export type PracticeMode = 'tekst' | 'kode' | 'svake';
 
-export type LayoutId = 'no-pc' | 'us-qwerty';
+export type LayoutId = 'no-pc' | 'no-mac' | 'us-qwerty' | 'us-mac';
 
 /** Which language a layout's practice text/word content should be drawn
  * in. See {@link ../layouts/layoutLanguage}. */
 export type Language = 'nb' | 'en';
+
+/** Whether a layout's modifier keys (and their labels) follow the PC
+ * convention (Ctrl/Alt/Win) or the Mac one (Control/Option/Cmd). See
+ * {@link ../layouts/layoutPlatform}. */
+export type LayoutPlatform = 'pc' | 'mac';

@@ -1,3 +1,4 @@
+import type { LayoutId } from '../types';
 import {
 	DEFAULT_SETTINGS,
 	emptyStoreData,
@@ -6,6 +7,8 @@ import {
 	type Settings,
 	type StoreData
 } from './types';
+
+const VALID_LAYOUTS: LayoutId[] = ['no-pc', 'no-mac', 'us-qwerty', 'us-mac'];
 
 const CURRENT_VERSION = 1;
 
@@ -90,7 +93,9 @@ function sanitizeSettings(v: unknown): Settings {
 			typeof r.showKeyboard === 'boolean' ? r.showKeyboard : DEFAULT_SETTINGS.showKeyboard,
 		showHands: typeof r.showHands === 'boolean' ? r.showHands : DEFAULT_SETTINGS.showHands,
 		strictMode: typeof r.strictMode === 'boolean' ? r.strictMode : DEFAULT_SETTINGS.strictMode,
-		layout: r.layout === 'no-pc' || r.layout === 'us-qwerty' ? r.layout : DEFAULT_SETTINGS.layout,
+		layout: VALID_LAYOUTS.includes(r.layout as LayoutId)
+			? (r.layout as LayoutId)
+			: DEFAULT_SETTINGS.layout,
 		theme:
 			r.theme === 'light' || r.theme === 'dark' || r.theme === 'system'
 				? r.theme

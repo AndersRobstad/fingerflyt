@@ -3,8 +3,10 @@
 	import SegmentedControl from '../components/SegmentedControl.svelte';
 	import SettingRow from '../components/SettingRow.svelte';
 	import Switch from '../components/Switch.svelte';
+	import { layoutLanguage, layoutPlatform, resolveLayoutId } from '../layouts';
 	import { progressStore } from '../storage/store.svelte';
 	import type { Settings } from '../storage/types';
+	import type { Language } from '../types';
 
 	let { open = $bindable(false) }: { open?: boolean } = $props();
 
@@ -14,9 +16,9 @@
 		{ value: 'dark', label: 'Mørk' }
 	];
 
-	const LAYOUT_OPTIONS = [
-		{ value: 'no-pc', label: 'Norsk (PC)' },
-		{ value: 'us-qwerty', label: 'US (QWERTY)' }
+	const LANGUAGE_OPTIONS = [
+		{ value: 'nb', label: 'Norsk' },
+		{ value: 'en', label: 'US' }
 	];
 </script>
 
@@ -62,14 +64,38 @@
 				Bytter også språket i tekst- og ordøvelsene.
 			</p>
 			<SegmentedControl
-				options={LAYOUT_OPTIONS}
-				ariaLabel="Tastaturlayout"
+				options={LANGUAGE_OPTIONS}
+				ariaLabel="Språk"
 				bind:value={
-					() => progressStore.data.settings.layout,
-					(v) => progressStore.updateSettings({ layout: v as Settings['layout'] })
+					() => layoutLanguage(progressStore.data.settings.layout),
+					(v) =>
+						progressStore.updateSettings({
+							layout: resolveLayoutId(
+								v as Language,
+								layoutPlatform(progressStore.data.settings.layout)
+							)
+						})
 				}
 			/>
 		</div>
+		<SettingRow
+			label="Mac-tastatur"
+			description="Bytter Ctrl/Alt/Win-tastene til Control/Option/Cmd."
+		>
+			<Switch
+				bind:checked={
+					() => layoutPlatform(progressStore.data.settings.layout) === 'mac',
+					(v) =>
+						progressStore.updateSettings({
+							layout: resolveLayoutId(
+								layoutLanguage(progressStore.data.settings.layout),
+								v ? 'mac' : 'pc'
+							)
+						})
+				}
+				aria-label="Mac-tastatur"
+			/>
+		</SettingRow>
 		<div class="py-3.5">
 			<p class="text-[0.95rem] text-ink">Fargetema</p>
 			<p class="mt-1 mb-3 text-sm leading-snug text-muted">
